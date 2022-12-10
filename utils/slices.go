@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/maps"
 )
 
@@ -47,4 +48,34 @@ func SetDifference[T comparable](s1 []T, s2 []T) []T {
 		}
 	}
 	return maps.Keys(difference)
+}
+
+func Max[T constraints.Ordered](s []T) T {
+	var max T
+	for _, t := range s {
+		if t > max {
+			max = t
+		}
+	}
+	return max
+}
+
+func Min[T constraints.Integer | constraints.Float](s []T) T {
+	var min T
+	for _, t := range s {
+		if t < min {
+			min = t
+		}
+	}
+	return min
+}
+
+func Reverse[T any](s []T) []T {
+	result := make([]T, len(s))
+	j := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		result[j] = s[i]
+		j++
+	}
+	return result
 }
